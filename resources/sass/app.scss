@@ -6,19 +6,43 @@
 @import 'variables';
 
 // Bootstrap
-//@import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+@import '~bootstrap/scss/bootstrap';
 
 .container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows:
     minmax(80px, auto)
-    minmax(60px, auto)
+    minmax(160px, auto)
+    minmax(100px, auto);
+
+  grid-row-gap: 1px;
+  grid-column-gap: 1px;
+  grid-template-areas: 
+    'header'
+    'content'
+    'footer';
+
+}
+
+.pg-header{
+  grid-area: header;
+  grid-column-start: 1;
+  grid-column-end: 4;
+
+  text-align: center;
+  align-content: center;
+}
+.pg-content{
+  grid-area: content;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  
+  
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows:
+    minmax(80p, auto)
     minmax(160px, auto)
     minmax(100px, auto)
     repeat(2, minmax(80px, auto));
@@ -26,26 +50,28 @@
   grid-row-gap: 1px;
   grid-column-gap: 1px;
   grid-template-areas: 
-    'header'
     'navigation'
     'main'
-    'aside-1'
-    'aside-2'
-    'footer';
-
+    'aside-1';
 }
-.pg-header{
-  grid-area: header;
+
+.pg-footer{
+  grid-area: footer;
   grid-column-start: 1;
   grid-column-end: 4;
+
+  align-content: center;
+  text-align: center;
 }
-.pg-content{
-  grid-area: main;
+
+.React-nav{
+  grid-area: navigation;
   grid-column-start: 1;
   grid-column-end: 4; 
 }
 
 .wrapper{
+  grid-area: main;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
@@ -57,27 +83,34 @@
   text-align: center;
 }
 
-.product:nth-last-of-type(odd){
-  background-color: aqua;
+.product:nth-of-type(odd){
+  background: beige;
 }
 
-.wrapper ul{
-  list-style: none;
-}
-
-.wrapper ul li{
-  display: inline;
+.product:nth-of-type(even){
+  background-color: lavender;
 }
 
 .aside-1{
   grid-area: aside-1;
-  grid-column-start: 3;
+  grid-column-start: 1;
   grid-column-end: 4;
   grid-row-start: 3;
   grid-row-end: 4;
+  background: cornflowerblue;
+  align-content: center;
+  text-align: center;
 }
-@media screen and (min-width: 476px){
+
+@media screen and (max-width: 476px){
   .container{
-    grid-template-columns: auto auto auto;
+    grid-template-columns:1fr;
+  }
+  .wrapper{
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    align-content: center;
   }
 }

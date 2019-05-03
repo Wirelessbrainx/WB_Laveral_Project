@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Product from './Product';
+import AddProduct from './AddProduct';
 
 /* An example React component */
 class Main extends Component {
@@ -12,6 +13,8 @@ class Main extends Component {
             products: [],
             currentProduct: null
         }
+
+        this.handleAddProduct = this.handleAddProduct.bind(this);
     }
 
     componentDidMount(){
@@ -27,7 +30,7 @@ class Main extends Component {
     renderProducts() {
         return this.state.products.map(product => {
             return (
-                <div class='product' onClick={ ()=>this.handleClick(product) }
+                <div className='product' onClick={ ()=>this.handleClick(product) }
                     key={product.id} >
                         { product.title }
                 </div>
@@ -39,21 +42,49 @@ class Main extends Component {
         this.setState({currentProduct:product});
     }
 
+    handleAddProduct(product) {
+     
+        product.price = Number(product.price);
+        /*Fetch API for post request */
+        fetch( 'api/products/', {
+            method:'post',
+            /* headers are important*/
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            
+            body: JSON.stringify(product)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .then( data => {
+           
+            this.setState((prevState)=> ({
+                products: prevState.products.concat(data),
+                currentProduct : data
+            }))
+        })
+     //update the state of products and currentProduct
+      }  
+
     render() {
         return (
-            <div>
-            <div>
-                <h3>All Products</h3>
-                <div class='wrapper'>
-                
-                    { this.renderProducts() }
-                
+            <React.Fragment>
+                <div className='React-nav'>
+                    <AddProduct onAdd= { this.handleAddProduct } />
                 </div>
-            </div>
-            <div>
+                <div className='React-content'>
+                    <h3>All Products</h3>
+                    <div className='wrapper'>
+                        { this.renderProducts() }
+                    </div>
+                </div>
+                <div className='aside-1'>
                 <Product product = { this.state.currentProduct } />
-            </div>
-            </div>
+                </div>
+            </React.Fragment>
         );
     }
 }

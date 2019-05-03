@@ -28,20 +28,22 @@ class ProductsController extends Controller
         
         $product = Product::create($request->all());
 
-        return responce()->json($product,201);
+        //return responce()->json($product,201);
+        return response()->json($product, 201);
+
     }
 
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
 
-        return responce()->json($product,200);
+        return response()->json($product,200);
     }
 
     public function delete(Product $product)
     {
         $product->delete();
 
-        return responce()-json(null, 204);
+        return response()-json(null, 204);
     }
 }

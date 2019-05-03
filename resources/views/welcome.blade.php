@@ -11,8 +11,12 @@
     <body>
         <div class="container">
             <h2 class="pg-header"> Laravel and React application </h2>
-                <div class='pg-content' id="root"></div>
-                <script src="{{mix('js/app.js')}}" ></script>
+            <div class='pg-content' id='root'></div>
+            <script src="{{mix('js/app.js')}}" ></script> 
+            <div class='pg-footer'>
+            <p>&copy; Copyright 2019 Oliver Grimes <strong>Ollie.gee42@btinternet.com</strong></p>
+
+            </div>   
         </div>
     </body>
 </html>
